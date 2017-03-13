@@ -145,6 +145,7 @@ namespace TechJobsConsole
 
                     }
                     Console.WriteLine("*****");
+                    Console.WriteLine(Environment.NewLine);
 
                     
                 }
