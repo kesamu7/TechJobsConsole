@@ -57,6 +57,29 @@ namespace TechJobsConsole
 
             return jobs;
         }
+        
+
+        public static List<Dictionary<string,string>> FindByValue(string value)
+        {
+            LoadData();
+
+            List<Dictionary<string, string>> aJobs = new List<Dictionary<string, string>>();
+
+            foreach (Dictionary<string,string> aRow in AllJobs)
+            {
+                foreach (KeyValuePair<string,string> j in aRow)
+                {
+                    if (j.Value.ToLower().Contains(value.ToLower()))
+                    {
+                        aJobs.Add(aRow);
+                    }
+                }
+            }
+
+            return aJobs;
+
+        }
+        
 
         /*
          * Load and parse data from job_data.csv
@@ -102,6 +125,9 @@ namespace TechJobsConsole
             IsDataLoaded = true;
         }
 
+
+        
+
         /*
          * Parse a single line of a CSV file into a string array
          */
@@ -137,6 +163,7 @@ namespace TechJobsConsole
             valueBuilder.Clear();
 
             return rowValues.ToArray();
+
         }
     }
 }

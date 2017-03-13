@@ -28,7 +28,7 @@ namespace TechJobsConsole
             while (true)
             {
 
-                string actionChoice = GetUserSelection("View Jobs", actionChoices);
+                string actionChoice = GetUserSelection("View Jobs Available", actionChoices);
 
                 if (actionChoice.Equals("list"))
                 {
@@ -56,18 +56,24 @@ namespace TechJobsConsole
 
                     // What is their search term?
                     Console.WriteLine("\nSearch term: ");
-                    string searchTerm = Console.ReadLine();
+                    string searchTerm = Console.ReadLine().ToLower();
 
                     List<Dictionary<string, string>> searchResults;
+                    //List<string> AllResults;
+                    
 
                     // Fetch results
                     if (columnChoice.Equals("all"))
                     {
-                        Console.WriteLine("Search all fields not yet implemented.");
+
+                        //Console.WriteLine("Search all fields not yet implemented.");
+                        searchResults = JobData.FindByValue(searchTerm);
+                        PrintJobs(searchResults);                      
+                        
                     }
                     else
                     {
-                        searchResults = JobData.FindByColumnAndValue(columnChoice, searchTerm);
+                        searchResults = JobData.FindByValue(searchTerm);
                         PrintJobs(searchResults);
                     }
                 }
@@ -118,7 +124,33 @@ namespace TechJobsConsole
 
         private static void PrintJobs(List<Dictionary<string, string>> someJobs)
         {
-            Console.WriteLine("printJobs is not implemented yet");
+
+            if (someJobs.Count == 0)
+            {
+                Console.WriteLine("No jobs match that criteria");
+            }
+
+            else
+            {
+
+                foreach (Dictionary<string, string> aJob in someJobs)
+                {
+
+                    Console.WriteLine("*****");
+                    foreach(KeyValuePair<string,string> j in aJob)
+                    {
+                        
+                        Console.WriteLine(j.Key + ":" + j.Value);
+                        
+
+                    }
+                    Console.WriteLine("*****");
+
+                    
+                }
+            }
+
+
         }
     }
 }
